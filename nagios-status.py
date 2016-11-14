@@ -10,7 +10,7 @@ def color(tot,ok,nok):
 	if tot == ok:
 		return 'green'
 	if nok == '0':
-		return 'orange'
+		return 'amber'
 	return 'red'
 
 print 'Hosts    :', color(hosts_tot,hosts_up,hosts_down)
