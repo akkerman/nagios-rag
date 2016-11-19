@@ -1,29 +1,21 @@
-import RPi.GPIO as GPIO
+#!/usr/bin/python
 import psutil
 
-GPIO.setmode(GPIO.BCM)
+def cpu_rag():
+    cpu = psutil.cpu_percent(interval=1)
 
-lights = [4, 18, 23]
-for gpio in lights:
-    GPIO.setup(gpio, GPIO.OUT, initial=False)
+    print cpu
 
-try:
-    while True:
-        cpu = psutil.cpu_percent(interval=1)
-        print cpu
+    if cpu > 25:
+        return "011"
+    if cpu > 50:
+        return "010"
+    if cpu > 75:
+        return "110"
+    if cpu > 99:
+        return "100"
 
-        state = "001"
-        if cpu > 25:
-            state = "011"
-        if cpu > 50:
-            state = "010"
-        if cpu > 75:
-            state = "110"
-        if cpu > 99:
-            state = "100"
+    return "001"
 
-        for i in range(3):
-            GPIO.output(lights[i], int(state[i]))
-
-except KeyboardInterrupt:
-    GPIO.cleanup()
+if __name__ == '__main__':
+    print cpu_rag()
