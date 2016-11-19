@@ -1,17 +1,22 @@
 #!/usr/bin/python
 from subprocess import check_output
 
-output = check_output(["nagios3stats", "-m", "--data=NUMHOSTS,NUMHSTUP,NUMHSTDOWN,NUMSERVICES,NUMSVCOK,NUMSVCCRIT", "-D,"])
 
+def rag(tot,ok,nok):
+    if tot == ok:
+        return '001' # green
+    if nok == '0':
+        return '010' # amber
+    return '100'     # red
 
-hosts_tot,hosts_up,hosts_down,srv_tot,srv_ok,srv_crit,z = output.split(",")
+def check_nagios():
+    output = check_output(["nagios3stats", "-m", "--data=NUMHOSTS,NUMHSTUP,NUMHSTDOWN,NUMSERVICES,NUMSVCOK,NUMSVCCRIT", "-D,"])
+    hosts_tot,hosts_up,hosts_down,srv_tot,srv_ok,srv_crit,z = output.split(",")
 
-def color(tot,ok,nok):
-	if tot == ok:
-		return 'green'
-	if nok == '0':
-		return 'amber'
-	return 'red'
+    host_rag = rag(hosts_tot,hosts_up,hosts_down)
+    serv_rag = rag(srv_tot,srv_ok,srv_crit)
+  
+    return (host_rag, serv_rag)
 
-print 'Hosts    :', color(hosts_tot,hosts_up,hosts_down)
-print 'Services :', color(srv_tot,srv_ok,srv_crit)
+if __name__ == "__main__": 
+   print check_nagios()
