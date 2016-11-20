@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import RPi.GPIO as GPIO
 from cpu_usage import cpu_rag 
-
+from nagios_status import nagios_rag
 
 host_leds = [11,9,10]
 serv_leds = [22,27,17]
@@ -22,7 +22,10 @@ if __name__ == '__main__':
     try: 
         while True:
             cpu_state = cpu_rag()
+            (host_state, serv_state) = nagios_rag()
             light(cpu_leds, cpu_state) 
+            light(host_leds, host_state)
+            light(serv_leds, serv_state)
         
     except KeyboardInterrupt:
         GPIO.cleanup()
