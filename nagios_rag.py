@@ -5,7 +5,7 @@ from cpu_usage import cpu_rag
 
 host_leds = [11,9,10]
 serv_leds = [22,27,17]
-cpu_leds  = [16,8,25]
+cpu_leds  = [18,8,25]
 
 def setup():
     GPIO.setmode(GPIO.BCM)
