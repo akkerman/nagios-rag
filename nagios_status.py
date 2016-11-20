@@ -9,7 +9,7 @@ def rag(tot,ok,nok):
         return '010' # amber
     return '100'     # red
 
-def check_nagios():
+def nagios_rag():
     output = check_output(["nagios3stats", "-m", "--data=NUMHOSTS,NUMHSTUP,NUMHSTDOWN,NUMSERVICES,NUMSVCOK,NUMSVCCRIT", "-D,"])
     hosts_tot,hosts_up,hosts_down,srv_tot,srv_ok,srv_crit,z = output.split(",")
 
@@ -19,4 +19,4 @@ def check_nagios():
     return (host_rag, serv_rag)
 
 if __name__ == "__main__": 
-   print check_nagios()
+   print nagios_rag()
