@@ -1,2 +1,0 @@
-grep 'Total\ Hosts\|Hosts\ Up\|Total\ Services\|Services\ Ok' stats.txt
-
