@@ -29,7 +29,7 @@ def test_hs(leds, delay):
         light(leds, "000")
 
 def test_host():
-    test_hs(host_leds, 2)
+    test_hs(host_leds, 1.8)
 
 def test_serv():
     test_hs(serv_leds, 1.9)
