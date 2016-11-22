@@ -3,12 +3,12 @@ import RPi.GPIO as GPIO
 from cpu_usage import cpu_rag 
 from nagios_status import nagios_rag
 
-host_leds = [11,9,10]
-serv_leds = [22,27,17]
-cpu_leds  = [18,8,25]
+host_leds = [23,24,26] # 25 ground
+serv_leds = [19,21,22] # 20 ground
+cpu_leds  = [13,15,16] # 14 ground
 
 def setup():
-    GPIO.setmode(GPIO.BCM)
+    GPIO.setmode(GPIO.BOARD)
     for led in host_leds + serv_leds + cpu_leds:
         GPIO.setup(led, GPIO.OUT, initial=False)
 
